@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>GirlMeetup</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat|Ubuntu&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Merienda&display=swap" rel="stylesheet">
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+      integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="css/bootstrap-btn.css" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+      integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="css/admin.css"/>
+    <link rel="stylesheet" href="css/styles.css"/>
+    <link rel="stylesheet" href="css/animate.css"/>
+    <link rel="stylesheet" href="css/userstyle.css"/>
+    <link rel="stylesheet" href="css/blogpost.css">
+    <link rel="stylesheet" href="css/blog_gallery.css">
+    <link rel="stylesheet" href="css/modal_form.css">
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="icon" href="image/favicon.png" />
+    <style>
+.heads {
+	background: url();
+	text-align: center;
+	width: 100%;
+	height: auto;
+	background-size:cover;
+	background-attachment: fixed;
+	position: relative;
+	overflow: hidden;
+	border-radius: -1 0 85% 85% / 92%;
+}
+.overlay{
+	width: 100%;
+	height: 50%;
+	color: #FFF;
+	text-shadow: 1px 1px 1px black;
+  background-image:linear-gradient(to right,  rgba(63, 55, 55, 0.73), rgba(7, 7, 7, 0.73)),
+    url("https://img.freepik.com/free-photo/office-table-with-cup-coffee-keyboard-notepad_1220-4617.jpg?size=626&ext=jpg&ga=GA1.2.1350925117.1606135336");
+  background-position: 1px -42px;
+}
+
+
+    </style>
+  </head>
+
+<body>
+  <header id="header" class="fixed-top" style="background-color: #132743 !important">
+
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-light" style="background-color: #132743 !important;">
+      <a href="/" class="logo">
+        <img src="image/GirlMeetup_logo.svg" alt="" class="img-fluid" style="height: 55px; padding-left: 10px;"/>
+      </a>
+
+      <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon" ></span>
+      </button>
+    
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item headpadding">
+            <a class="nav-link btn-get-quote text-white mr-sm-2" href="/">Home</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+             Scholarship
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="#">School students</a>
+              <a class="dropdown-item" href="#">Undergraduates</a>
+              <!-- <div class="dropdown-divider"></div> -->
+              <a class="dropdown-item" href="#">Postgraduates</a>
+            <!-- </div> -->
+          </li>
+          <li class="nav-item headpadding">
+            <a class="nav-link btn-get-quote text-white" href="#mentor">Mentor</a>
+          </li>
+          <li class="nav-item headpadding">
+            <a class="nav-link btn-get-quote text-white" href="/blog_gallery">Blog</a>
+          </li>
+          <li class="nav-item headpadding">
+            <a class="nav-link btn-get-quote text-white" href="/faq">FAQ</a>
+          </li>
+          <li class="nav-item headpadding">
+
+            <% if(!currentUser){ %>
+              <a id="modal_btn" class="nav-link btn-get-quote text-white" href="#Login">Login</a>
+      <% } else { %>
+        <a class="nav-link btn-get-quote text-white btn btn-success" href="/logout">Logout</a>
+      <% } %>
+          
+       
+            <!-- <a class="nav-link btn-get-quote text-white" href="#Login">Login</a> -->
+
+          </li>       
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <div  class="heads overlay" style="background-color: rgb(243, 243, 243); padding: 10px; margin-top: 65px;">
+    <h2 style="padding: 80px; font-family: 'Sarina', cursive;">Blog</h2>
+    <p style="font-size: 25px;margin-top: -71px;text-align: center; font-family: 'Sarina', cursive;">Share | Create | Inspire</p>
+  </div>
+
+<div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-4 col-sm-12" style="margin-top: 20px">
+        <form action="" class="mx-auto">
+          <input type="text" class="inputtext" value="Search" />
+        </form>
+      </div>
+    </div>
+    <div class="row">
+      <div
+        class="col-lg-4 col-sm-10 mx-auto vertical_container_detail"
+        style="
+          background-color: rgb(243, 243, 243);
+          padding: 20px 0;
+          margin: 20px 10px;
+          height: 100%;
+        "
+      >
+        <div class="card mx-auto" style="width: 18rem">
+          <div class="card-header" style="color: white">
+            <h3><center>Categories</center></h3>
+          </div>
+          <ul class="list-group list-group-flush text-center">
+            <li class="list-group-item">
+              <a href="#"
+                ><i class="fa fa-users" aria-hidden="true"></i
+                >&nbsp;&nbsp;Internship</a
+              >
+            </li>
+            <li class="list-group-item">
+              <a href="#"
+                ><i class="fa fa-user-plus" aria-hidden="true">&nbsp;&nbsp;</i
+                >Mentorship</a
+              >
+            </li>
+            <li class="list-group-item">
+              <a href="#"
+                ><i class="fa fa-university" aria-hidden="true"></i
+                >&nbsp;&nbsp;Scholarship</a
+              >
+            </li>
+            <li class="list-group-item">
+              <a href="#"
+                ><i class="fa fa-users" aria-hidden="true"></i
+                >&nbsp;&nbsp;Internship</a
+              >
+            </li>
+            <li class="list-group-item">
+              <a href="#"
+                ><i class="fa fa-user-plus" aria-hidden="true">&nbsp;&nbsp;</i
+                >Mentorship</a
+              >
+            </li>
+            <li class="list-group-item">
+              <a href="#"
+                ><i class="fa fa-university" aria-hidden="true"></i
+                >&nbsp;&nbsp;Scholarship</a
+              >
+            </li>
+          </ul>
+        </div>
+        <br />
+        <div class="card mx-auto" style="width: 18rem">
+          <div class="card-header" style="color: white">
+            <h3><center>Discussions</center></h3>
+          </div>
+          <ul class="list-group list-group-flush text-center">
+            <li class="list-group-item"><a href="#">ABC</a></li>
+            <li class="list-group-item"><a href="#">XYZ</a></li>
+          </ul>
+        </div>
+        <br/>
+        <div class="card mx-auto" style="width: 18rem">
+          <div class="card-header" style="color: white">
+            <h3><center>Events</center></h3>
+          </div>
+          <ul class="list-group list-group-flush text-center d-inline">
+            
+            <img src="https://images.unsplash.com/photo-1576085898323-218337e3e43c?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80" width="100px" height="100px" style="padding: 10px;"/>
+            <img src="https://images.unsplash.com/1/bag-and-hands.jpg?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1047&q=80" width="100px" height="100px" style="padding: 10px;"/>
+            <img src="https://images.unsplash.com/photo-1512758017271-d7b84c2113f1?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80" width="100px" height="100px" style="padding: 10px;"/>
+            <img src="https://images.unsplash.com/photo-1541746972996-4e0b0f43e02a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80" width="100px" height="100px" style="padding: 10px;"/>
+
+          </ul>
+        </div>
+
+      </div>
+      <div class="col-lg-4 col-sm-10 mx-auto vertical_container_detail">
+        <div class="well" style="padding: 10px">
+          <div class="card mx-auto">
+            <img
+              class="card-img"
+              src="https://images.unsplash.com/photo-1576085898323-218337e3e43c?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
+              alt="Bologna"
+            />
+            <!-- card-img-overlay -->
+            <div class="">
+              <a href="#" class="btn btn-light btn-sm">Mentorship</a>
+            </div>
+            <div class="card-body">
+              <h4 class="card-title">The Heaven for Bloggers</h4>
+              <small class="text-muted cat">
+                <i class="far fa-clock text-info"></i> 8 Minutes &nbsp;
+                <i class="fas fa-users text-info"></i> 4 Hits
+              </small>
+              <p class="card-text">
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                Tempora, dolorem.
+              </p>
+              <a href="/blog" style="width: 120px" class="btn btn-info"
+                >Read More</a
+              >
+            </div>
+            <div
+              class="card-footer text-muted d-flex justify-content-between bg-transparent border-top-0"
+            >
+              <div class="views">Oct 20, 12:45PM</div>
+              <div class="stats">
+                <i class="far fa-eye"></i> 1347
+                <i class="far fa-comment"></i> 12
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="well" style="padding: 10px">
+          <div class="card">
+            <img
+              class="card-img"
+              src="https://images.unsplash.com/1/bag-and-hands.jpg?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1047&q=80"
+              alt="Bologna"
+            />
+            <div class="">
+              <a href="#" class="btn btn-light btn-sm">Planning</a>
+            </div>
+            <div class="card-body">
+              <h4 class="card-title">The Heaven for Bloggers</h4>
+              <small class="text-muted cat">
+                <i class="far fa-clock text-info"></i> 30
+                Minutes&NonBreakingSpace;
+                <i class="fas fa-users text-info"></i> 4 Hits
+              </small>
+              <p class="card-text">
+                Lorem ipsum dolor sit amet consectetur adipisicing.
+              </p>
+              <a href="/blog" class="btn btn-info">Read More</a>
+            </div>
+            <div
+              class="card-footer text-muted d-flex justify-content-between bg-transparent border-top-0"
+            >
+              <div class="views">Oct 20, 12:45PM</div>
+              <div class="stats">
+                <i class="far fa-eye"></i> 1347
+                <i class="far fa-comment"></i> 12
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-sm-10 mx-auto vertical_container_detail">
+        <div class="well" style="padding: 10px">
+          <div class="card">
+            <img
+              class="card-img"
+              src="https://images.unsplash.com/photo-1512758017271-d7b84c2113f1?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
+              alt="Bologna"
+            />
+            <div class="">
+              <a href="#" class="btn btn-light btn-sm">Scholarship</a>
+            </div>
+            <div class="card-body">
+              <h4 class="card-title">The Heaven for Bloggers</h4>
+              <small class="text-muted cat">
+                <i class="far fa-clock text-info"></i> 30
+                Minutes&NonBreakingSpace;
+                <i class="fas fa-users text-info"></i> 4 Hits
+              </small>
+              <p class="card-text">
+                Lorem ipsum dolor sit amet consectetur adipisicing.
+              </p>
+              <a href="/blog" class="btn btn-info">Read More</a>
+            </div>
+            <div
+              class="card-footer text-muted d-flex justify-content-between bg-transparent border-top-0"
+            >
+              <div class="views">Oct 20, 12:45PM</div>
+              <div class="stats">
+                <i class="far fa-eye"></i> 1347
+                <i class="far fa-comment"></i> 12
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="well" style="padding: 10px">
+          <div class="card">
+            <img
+              class="card-img"
+              src="https://images.unsplash.com/photo-1541746972996-4e0b0f43e02a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
+              alt="Bologna"
+            />
+            <div class="">
+              <a href="#" class="btn btn-light btn-sm">Internship</a>
+            </div>
+            <div class="card-body">
+              <h4 class="card-title">The Heaven for Bloggers</h4>
+              <small class="text-muted cat">
+                <i class="far fa-clock text-info"></i> 30
+                Minutes&NonBreakingSpace;
+                <i class="fas fa-users text-info"></i> 4 Hits
+              </small>
+              <p class="card-text">
+                Lorem ipsum dolor sit amet consectetur adipisicing.
+              </p>
+              <a href="/blog" class="btn btn-info">Read More</a>
+            </div>
+            <div
+              class="card-footer text-muted d-flex justify-content-between bg-transparent border-top-0"
+            >
+              <div class="views">Oct 20, 12:45PM</div>
+              <div class="stats">
+                <i class="far fa-eye"></i> 1347
+                <i class="far fa-comment"></i> 12
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('partials/footer') %>

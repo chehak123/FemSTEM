@@ -1,0 +1,115 @@
+<!-- ======= Footer ======= -->
+    <div style="position: relative;">
+    <footer class="site-footer">
+
+          <!-- About section -->
+          <div class="container">
+            <div class="row">
+              <div class="col-xs-12 col-md-4">
+                <a class="logo-link" href="#"><img class="footer-logo" src="image/footerlogo.png" alt="Girl Meetup logo"></a>
+                <p class="text-justify">This is a web development project with a vision to create a platform for people especially girls listing various scholarship opportunities and programs.</p>
+                <br>
+                <p class="copyright">&copy; <strong>Made with <i class="fas fa-heart"></i> by GirlMeetup</strong></p>
+             
+              </div>
+
+              <!-- Links -->
+              <div class="col-6 col-md-3 footer-nav">
+                  <ul class="list-unstyled">
+                    <li class="mt-md-3 mt-4"><a class="foot-link">Home</a></li>
+                    <!-- <li><a class="foot-link">About</a></li> -->
+                    <li><a class="foot-link">Scholarship</a></li>
+                    <li><a class="foot-link">Mentor</a></li>
+                    <li><a class="foot-link" href="/blog_gallery">Blog</a></li>
+                    <li><a class="foot-link">FAQ</a></li>
+                    <!-- <li><a class="foot-link">Team</a></li> -->
+                    <li><a class="foot-link">Login</a></li>
+
+                  </ul>
+              </div>
+
+              <!-- Newsletter -->
+              <div class="col-xs-12 col-md-4 footer-ns">
+                <h4>Newsletter</h4>
+                <p>Stay updated about the latest opportunities and the best of all words through our Newsletter!</p>
+                <p>
+                  <!-- Display form submission status -->
+                  <div class="status"></div>
+
+                  <!--Subscription form -->
+                    <div class="input-group"></div>
+                    <form action="/newsletter" id="subsFrm" method="POST">
+                      <input type="email" name="email" id="email" placeholder="malala@extraordinary.com" required>
+                      <input type="text" name="name" id="name" placeholder="Gal Gadot" required>           
+                      <span class="input-group-btn">
+                        <button class="btn btn-default" id="subscribeBtn" value="Subscribe Now" type="submit"><i class="fa fa-envelope fa-2x fa-mail" aria-hidden="true"></i></button>
+                      </span>
+                    </form>
+                 </p>
+                 <a href="https://github.com/chehak123/GirlMeetup"><i class="fa fa-github fa-3x git-icon" style="color: #79DC68" aria-hidden="true"></i></a>
+
+            <div class="social col-xs-2 top-arrow">
+                <a href="#"><i class="fas fa-arrow-circle-up fa-3x" aria-hidden="true"></i></a>
+            </div>
+      </div>
+    </div>
+  </div>
+</footer>
+</div>
+  <!-- End Footer -->
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous"></script>
+    <script
+        src="https://kit.fontawesome.com/22a2749f4c.js"
+        crossorigin="anonymous"
+      ></script>
+
+
+    <script src="js/main.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/wow.min.js"></script>
+    <script>
+      new WOW().init();
+    </script>
+
+  </body>
+
+</html>
+
+
+<script>
+    /* Scroll up footer */
+    var isShowing = false;
+    $(window).scroll(function() {
+      if ($(window).scrollTop() + $(window).height() === $(document).height()) {
+          $('.site-footer').slideToggle();
+          isShowing = true;
+      } else if (isShowing === true && $(window).scrollTop() + $(window).height() <= $(document).height() * 0.9) {
+          $('.site-footer').slideToggle();
+          isShowing = false;
+      }
+  });
+
+
+    /* Scroll to top button */
+    var target = document.querySelector("site-footer");
+
+	function callback(entries, observer) {
+	  // The callback will return an array of entries, even if you are only observing a single item
+	  entries.forEach(entry => {
+	    if (entry.isIntersecting) {
+	      // Show button
+	      scrollToTopBtn.classList.add('top-arrow')
+	    } else {
+	      // Hide button
+	      scrollToTopBtn.classList.remove('top-arrow')
+	    }
+	  });
+	}
+
+	let observer = new IntersectionObserver(callback);
+	observer.observe(target);
+</script>

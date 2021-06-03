@@ -26,6 +26,7 @@
           placeholder="Email ID"
           required
         />
+
         <input
           id="log_password"
           type="text"
@@ -44,6 +45,11 @@
         id="signup"
         class="input-container"
       >
+      <label for="user_type" style="color:white">You would like to register as:</label>
+        <select id="user_type"  form="signup">
+          <option value=1>Mentor</option>
+          <option value=2>Mentee</option>
+        </select>
         <input
           type="text"
           name="name"
@@ -68,9 +74,10 @@
           placeholder="Password"
           required
         />
-
+        
         <button type="submit" class="submit-btn">Signup</button>
       </form>
+      
     </div>
   </div>
 </div>

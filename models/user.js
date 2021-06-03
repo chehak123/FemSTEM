@@ -4,6 +4,7 @@ const UserSchema = new mongoose.Schema({
   username: String,
   password: String,
   name: String,
+  is_mentor:Number
 });
 UserSchema.plugin(passportLocalMongoose);
 module.exports = mongoose.model("User", UserSchema);

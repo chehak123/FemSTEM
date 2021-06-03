@@ -49,48 +49,7 @@ app.get("/", function(req, res){
 });
 var authRoutes = require("./routes/auth.js");
 app.use("/", authRoutes);
-//Auth Routes 
-/*app.get("/login", (req, res) => {
-  res.render("/" + "#login_new_user");
-});
 
-app.post(
-  "/login",
-  passport.authenticate("local", {
-    successRedirect: "/",
-    failureRedirect: "/" + "#login_failed",
-  }),
-  function (req, res) {}
-);
-
-app.get("/register", (req, res) => {
-  res.render("/" + "#register_new_user");
-});
-
-app.post("/register", (req, res) => {
-  User.register(
-    new User({
-      username: req.body.username,
-      name: req.body.name,
-      is_mentor: req.body.mentor
-    }),
-    req.body.password,
-    function (err, user) {
-      if (err) {
-        console.log(err);
-        res.render("register");
-      }
-      passport.authenticate("local")(req, res, function () {
-        console.log(req.baseUrl);
-        res.redirect("/" + "#login_new_user");
-      });
-    }
-  );
-
-  res.render("index");
-
-});
-*/
 app.get("/logout", (req, res) => {
   req.logout();
   res.redirect("/");

@@ -14,7 +14,8 @@ const request = require('request');
 
 //Connecting database
 mongoose.connect(
-  "mongodb+srv://dbUser:dbUser@cluster0.uijgw.mongodb.net/test?retryWrites=true&w=majority",
+  //"mongodb+srv://dbUser:dbUser@cluster0.uijgw.mongodb.net/test?retryWrites=true&w=majority",
+ "mongodb+srv://chehak:123@cluster0.ca1bc.mongodb.net/UserDB",
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -46,9 +47,10 @@ app.get("/", function(req, res){
 
   res.render("index", {currentUser: req.user});
 });
-
+var authRoutes = require("./routes/auth.js");
+app.use("/", authRoutes);
 //Auth Routes 
-app.get("/login", (req, res) => {
+/*app.get("/login", (req, res) => {
   res.render("/" + "#login_new_user");
 });
 
@@ -70,6 +72,7 @@ app.post("/register", (req, res) => {
     new User({
       username: req.body.username,
       name: req.body.name,
+      is_mentor: req.body.mentor
     }),
     req.body.password,
     function (err, user) {
@@ -87,7 +90,7 @@ app.post("/register", (req, res) => {
   res.render("index");
 
 });
-
+*/
 app.get("/logout", (req, res) => {
   req.logout();
   res.redirect("/");

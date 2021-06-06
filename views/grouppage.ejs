@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+    <!-- FA CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.css" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="../img/favicon.png" type="image/png">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/animate.css">
+    <link rel="stylesheet" href="../css/modal_form.css">
+    <link rel="stylesheet" href="../css/toast.css">
+    <link rel="stylesheet" href="../css/grouppage.css">
+        
+
+    <style>
+
+    #wrapper {
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    header {
+      height: 450px;
+      margin-top: 70px;
+      width: 100%;
+      overflow: hidden;
+      background: white url("<%= group.link %>") no-repeat center center;
+      background-size: cover;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      /* The two lines below make the photo opaque. No Apacity = 1  Full Opacity = 0  :-) */
+      opacity: 0.8;
+      line-height: 2.8em;
+      /* opacity:0.5; */
+    }
+
+    h1 {
+  margin-top: 1em;
+  font-family: Arial, San-serif;
+  font-size: 70px;
+  Text-align: center;
+  color: limegreen;
+  width: 100%;  
+}
+
+    </style>
+
+    <!-- Title of Page -->
+    <title>FemSTEM</title>
+  </head>
+
+  
+  <body>
+    <%- include('modal_form') %>
+    <%- include('toast') %>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-md navbar-light fixed-top" style="background-color: #d291bc !important;">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <img src="../img/logo-nobg.png" width="250" background= "white" text-indent= "-99999px" style="margin-left: 3%;">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="/">Home</a>
+            </li>
+            <li class="nav-item  nav-item-active">
+              <% if(currentUser){ %>
+                <a class="nav-link nav-link-active" aria-current="page" href="/help">Help</a>
+              <% } %>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="/tutorials">Tutorials</a>
+            </li>
+            <li class="nav-item">
+              <% if(currentUser){ %>
+              <a class="nav-link" aria-current="page" href="/teammates">Teammates</a>
+              <% } %>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="/opportunities">Opportunities</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="/">Pride</a>
+            </li>
+
+            <li class="nav-item" style="background-color: #d291bc !important; margin-bottom: 0 !important; padding-top: 0 !important; padding-bottom: 0 !important;">
+              <% if(currentUser){ %>
+                <a class="nav-link" aria-current="page" href="/profile" style="margin-top: 0 !important; margin-bottom: 0 !important; padding-top: 0 !important; padding-bottom: 0 !important;"><i class="fas fa-user-circle" style="font-size: 36px; margin-top: 0 !important; margin-bottom: 0 !important; padding-top: 0 !important; padding-bottom: 0 !important; color: #FFDFD3;"></i><%= currentUser.name %></a>
+               <% } %>
+            </li>
+           
+              <% if(!currentUser){ %>
+                <li class="nav-item">
+                <a id="modal_btn" class="nav-link btn-get-quote text-white" href="#login">Login</a>
+                </li>
+              <% } else { %>
+                <li class="nav-item">
+                <a class="nav-link " href="/logout">Logout</a>
+                </li>
+              <% } %>      
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+
+    
+    <!-- <h1><%= group.title %></h1>
+    <p><%= group.description %></p>  -->
+    <a></a>
+
+    <div id="wrapper">
+      <header>
+        <!-- <h1><%= group.title %></h1>
+        <p><%= group.description %></p> -->
+
+      </header>
+  </div>
+    <!-- <img src="<%= group.link %>" id="bg" alt=""> -->
+    
+   <!-- Comment section -->
+    <div class="comment-container container top-head-com theme--light">
+      <div class="row" style="font-family: Verdana, Geneva, Tahoma, sans-serif;">
+        <h2 style="margin-top: 6%; color:#619196; font-size: 43px; "><%= group.title %></h2>
+        <p style="color:#8484c8; font-size: 18px; "><%=group.description %> Clear all your doubts by posting your topic relevant questions in this group and wait for the mentor or others on the thread to help you.</p>
+      </div>
+       
+        <!-- Skills tags -->
+        <div class="tags">        
+            <ul>
+                <li>
+                    <a>
+                      <%group.skills.forEach(function(skill){%>
+                        <p><%=skill%></p>
+                        <%}) %>
+                    </a>
+                </li>         
+            </ul>
+          </div>
+
+   
+          <!-- All comments shown -->
+        <div class="comments" >
+          <% group.comments.forEach(function(comment){%>
+          <div>
+            <div  class="card v-card v-sheet theme--light elevation-2">
+              <div  class="header">
+                <div  class="v-avatar avatar" style="height: 50px; width: 50px;">
+                  <% if(currentUser.is_mentor == 1){ %>
+                    <img  src="../img/mentor.jpg">
+                  <% } else { %>
+                    <img  src="../img/mentee.jpg">
+                  <% } %> 
+                </div>
+                <span  class="displayName title"> <%=comment.author.username%></span> <span  class="displayName caption">2 days ago</span></div>
+              <!---->
+              <div  class="wrapper comment">
+                <p style="color: #000 !important; font-size: 14px;"><%=comment.text%></p>
+              </div>
+              <div  class="actions">
+                <!---->
+                <!---->
+                <!---->
+              </div>
+              <div  class="v-dialog__container" style="display: block;"></div>
+            </div>
+            <!---->
+            <div  class="answers">
+              <!---->
+            </div>
+          </div>
+        </div>
+        <%});%>
+
+
+        <!-- Comment input box -->
+        <div class="row" style="margin-top: 3%;">
+          <div class="col-12">
+            <form class="sweet-form" action="/help/<%= group._id %>" method="post">
+              <div class="form-group">
+                <textarea name="text" type="text" rows="5" cols="50" placeholder="Answer the doubts in this thread..."></textarea><br>
+               <br><br><br>
+                <button class="btn btn-primary" type="submit" name="button" style="background: #fcb5a0 !important; float: right; margin-top: 9%;">Answer in this thread</button>                
+              </div>
+              <br>
+              
+            </form>
+            
+          </div>
+        </div>
+    </div>
+
+
+    
+
+
+   
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 footer-left">
+            <p>
+              <img src="../img/favicon.png" style="width: 65px;">  <span style="color: #573f70; font-weight: 600;">Made with <i class="fas fa-heart"></i> by FemSTEM</span>
+            </p>        
+          </div>
+          <div class="col-md-3 offset-md-1 footer-right">
+            <a href="https://github.com/Swatilekha-Roy/Zen-Bubble"><i class="fab fa-github"></i></a>
+						<a href="mailto:swatilekha.roy4@gmail.com"><i class="fa fa-envelope"></i></a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scroll to top arrow -->
+    <a href="javascript:" id="return-to-top"><i class="fa fa-angle-up" aria-hidden="true" style="font-size: 30px;"></i></a>
+
+    <!-- JQuery JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js" integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g==" crossorigin="anonymous"></script>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
+    
+    <!-- Custom scripts -->    
+    <script type="text/javascript" src="../js/modal.js"></script>
+    <script type="text/javascript" src="../js/scripts.js"></script>
+    <script type="text/javascript" src="../js/wow.min.js"></script>
+
+    <!-- Userway -->
+    <script>(function(d){var s = d.createElement("script");s.setAttribute("data-account", "E9TGLGySQm");s.setAttribute("src", "https://cdn.userway.org/widget.js");(d.body || d.head).appendChild(s);})(document)</script><noscript>Please ensure Javascript is enabled for purposes of <a href="https://userway.org">website accessibility</a></noscript>
+
+    <!-- WOW animations -->
+    <script type="text/javascript">
+        new WOW().init();
+    </script>
+  </body>
+</html>
+
+
+
+
+
+    <!-- <div class="d-flex align-items-center justify-content-center vh-100">
+        <div class="container">
+          <div class="row justify-content-center mb-4">
+            <div class="col-lg-8">
+              <h5>2 Comments</h5>
+              
+            </div>
+          </div>
+          <div class="row justify-content-center mb-4">
+            <div class="col-lg-8">
+              <div class="comments">
+                <div class="comment d-flex mb-4">
+                  <div class="flex-shrink-0">
+                    <div class="avatar avatar-sm rounded-circle">
+                      <img class="avatar-img" src="https://www.animationmentor.com/wp-content/uploads/2020/06/AM-Rig-Moya.jpg" alt="">
+                    </div>
+                  </div>
+                  <div class="flex-grow-1 ms-2 ms-sm-3">
+                    <div class="comment-meta d-flex align-items-baseline">
+                      <h6 class="me-2">Jordan Singer</h6>
+                      <span class="text-muted">2d</span>
+                    </div>
+                    <div class="comment-body">
+                      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Non minima ipsum at amet doloremque qui magni, placeat deserunt pariatur itaque laudantium impedit aliquam eligendi repellendus excepturi quibusdam nobis esse accusantium.
+                    </div>
+      
+                    <div class="comment-replies bg-light p-3 mt-3 rounded">
+                      <h6 class="comment-replies-title mb-4 text-muted text-uppercase">2 replies</h6>
+      
+                      <div class="reply d-flex mb-4">
+                        <div class="flex-shrink-0">
+                          <div class="avatar avatar-sm rounded-circle">
+                            <img class="avatar-img" src="https://images.unsplash.com/photo-1501325087108-ae3ee3fad52f?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=f7f448c2a70154ef85786cf3e4581e4b" alt="">
+                          </div>
+                        </div>
+                        <div class="flex-grow-1 ms-2 ms-sm-3">
+                          <div class="reply-meta d-flex align-items-baseline">
+                            <h6 class="mb-0 me-2">Brandon Smith</h6>
+                            <span class="text-muted">2d</span>
+                          </div>
+                          <div class="reply-body">
+                            Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                          </div>
+                        </div>
+                      </div>
+                      <div class="reply d-flex">
+                        <div class="flex-shrink-0">
+                          <div class="avatar avatar-sm rounded-circle">
+                            <img class="avatar-img" src="https://uifaces.co/our-content/donated/6f6p85he.jpg" alt="">
+                          </div>
+                        </div>
+                        <div class="flex-grow-1 ms-2 ms-sm-3">
+                          <div class="reply-meta d-flex align-items-baseline">
+                            <h6 class="mb-0 me-2">James Parsons</h6>
+                            <span class="text-muted">1d</span>
+                          </div>
+                          <div class="reply-body">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio dolore sed eos sapiente, praesentium.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="comment d-flex">
+                  <div class="flex-shrink-0">
+                    <div class="avatar avatar-sm rounded-circle">
+                      <img class="avatar-img" src="https://uifaces.co/our-content/donated/EPx48HPQ.jpg" alt="">
+                    </div>
+                  </div>
+                  <div class="flex-shrink-1 ms-2 ms-sm-3">
+                    <div class="comment-meta d-flex">
+                      <h6 class="me-2">Santiago Roberts</h6>
+                      <span class="text-muted">4d</span>
+                    </div>
+                    <div class="comment-body">
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto laborum in corrupti dolorum, quas delectus nobis porro accusantium molestias sequi.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row justify-content-center">
+            <div class="col-lg-8">
+              <div class="comment-form d-flex align-items-center">
+                <div class="flex-shrink-0">
+                  <div class="avatar avatar-sm rounded-circle">
+                    <img class="avatar-img" src="https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&crop=faces&fit=crop&h=200&w=200" alt="">
+                  </div>
+                </div>
+                <div class="flex-grow-1 ms-2 ms-sm-3">
+                  <form>
+                    <textarea class="form-control py-0 px-1 border-0" rows="1" placeholder="Start writing..." style="resize: none;"></textarea>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> -->

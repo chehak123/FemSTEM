@@ -110,3 +110,27 @@ var player;
       // %7Cwomenintech%7Cwomancoder%7Cfemalecoder%7Cgirlsintech%Ctechwomen
 
       // https://www.googleapis.com/youtube/v3/search?part=snippet&q=%23%23girlsintech%26%26javascript&key=AIzaSyBHA1Itn4r8RPJZ2Owkib9jCMBPWpEcYVU
+
+
+
+  // search functionality 
+  let search = document.querySelector('#searchTxthelp');
+  
+  searchTxthelp.addEventListener("input", function() {
+      let inputVal = search.value.toLowerCase();
+      let noteCards = document.querySelector('#noteCard');
+      console.log("I am here")
+      Array.from(noteCards).forEach(function(element) {
+          let cardTxt = element.getElementsByTagName("p")[0].innerText;
+          console.log("I am here")
+          if(cardTxt.includes(inputVal))
+          {
+              element.style.display = "block";
+               console.log("even here")
+          }
+          else
+          {
+              element.style.display = "none";
+          }
+      })
+  })

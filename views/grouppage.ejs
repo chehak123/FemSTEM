@@ -24,13 +24,13 @@
 
     <style>
 
-    #wrapper {
+   #wrapper {
       margin: 0 auto;
       width: 100%;
     }
 
     header {
-      height: 450px;
+      height: 350px;
       margin-top: 70px;
       width: 100%;
       overflow: hidden;
@@ -39,10 +39,8 @@
       -webkit-background-size: cover;
       -moz-background-size: cover;
       -o-background-size: cover;
-      /* The two lines below make the photo opaque. No Apacity = 1  Full Opacity = 0  :-) */
       opacity: 0.8;
       line-height: 2.8em;
-      /* opacity:0.5; */
     }
 
     h1 {
@@ -120,46 +118,42 @@
     </nav>
 
 
-    
-    <!-- <h1><%= group.title %></h1>
-    <p><%= group.description %></p>  -->
-    <a></a>
-
+ 
     <div id="wrapper">
       <header>
         <!-- <h1><%= group.title %></h1>
         <p><%= group.description %></p> -->
-
       </header>
-  </div>
+    </div>
     <!-- <img src="<%= group.link %>" id="bg" alt=""> -->
     
    <!-- Comment section -->
-    <div class="comment-container container top-head-com theme--light">
-      <div class="row" style="font-family: Verdana, Geneva, Tahoma, sans-serif;">
+    <div class="comment-container container theme--light">
+      <div class="row">
         <h2 style="margin-top: 6%; color:#619196; font-size: 43px; "><%= group.title %></h2>
-        <p style="color:#8484c8; font-size: 18px; "><%=group.description %> Clear all your doubts by posting your topic relevant questions in this group and wait for the mentor or others on the thread to help you.</p>
+        <p style="color:#8484c8; font-size: 18px; "><%= group.description %> Clear all your doubts by posting your topic relevant questions in this group and wait for the mentor or others on the thread to help you.</p>
       </div>
        
         <!-- Skills tags -->
         <div class="tags">        
             <ul>
+              <%group.skills.forEach(function(skill){%>
                 <li>
                     <a>
-                      <%group.skills.forEach(function(skill){%>
-                        <p><%=skill%></p>
-                        <%}) %>
+                      <%= skill %>     
                     </a>
-                </li>         
+                </li>    
+                <%}) %>     
             </ul>
           </div>
 
    
           <!-- All comments shown -->
         <div class="comments" >
+          
           <% group.comments.forEach(function(comment){%>
-          <div>
             <div  class="card v-card v-sheet theme--light elevation-2">
+              
               <div  class="header">
                 <div  class="v-avatar avatar" style="height: 50px; width: 50px;">
                   <% if(currentUser.is_mentor == 1){ %>
@@ -168,51 +162,59 @@
                     <img  src="../img/mentee.jpg">
                   <% } %> 
                 </div>
-                <span  class="displayName title"> <%=comment.author.username%></span> <span  class="displayName caption">2 days ago</span></div>
-              <!---->
+                <span  class="displayName title"> <%=comment.author.username%> </span> 
+                <span  class="displayName caption">2 days ago</span>
+              </div>
+ 
               <div  class="wrapper comment">
                 <p style="color: #000 !important; font-size: 14px;"><%=comment.text%></p>
+                <span class="badge badge-success">Success</span>
               </div>
-              <div  class="actions">
-                <!---->
-                <!---->
-                <!---->
-              </div>
-              <div  class="v-dialog__container" style="display: block;"></div>
             </div>
-            <!---->
-            <div  class="answers">
-              <!---->
-            </div>
-          </div>
+            <%});%>
         </div>
-        <%});%>
-
-
-        <!-- Comment input box -->
-        <div class="row" style="margin-top: 3%;">
-          <div class="col-12">
-            <form class="sweet-form" action="/help/<%= group._id %>" method="post">
-              <div class="form-group">
-                <textarea name="text" type="text" rows="5" cols="50" placeholder="Answer the doubts in this thread..."></textarea><br>
-               <br><br><br>
-                <button class="btn btn-primary" type="submit" name="button" style="background: #fcb5a0 !important; float: right; margin-top: 9%;">Answer in this thread</button>                
-              </div>
-              <br>
-              
-            </form>
             
-          </div>
-        </div>
     </div>
+       
+               
 
 
+    <!-- Comment input box -->
+    <div class="container" style="margin-top: 3%; float: right;">
+      <div class="row" style="float: right !important;">
+        <div class="col-8" style="float: right !important;">
+          <form class="sweet-form" action="/help/<%= group._id %>" method="post">
+            <div class="form-group">
+              <textarea name="text" type="text" rows="5" cols="70" placeholder="Answer the doubts in this thread..." required></textarea><br>
+             <br><br><br>      
+            </div>
+            <br>    
+            
+            <div class="col-xs-4 col-md-6" style="float: right;">
+              <button class="btn btn-primary btn-ans" type="submit" name="button" style="float: right; margin-top: 9%;">Answer!</button>          
+            </div>
+          </form>          
+        </div>
+        
+      </div>  
+
+    </div>
     
 
+    
+    <!-- Discord link -->
+    <div class="container" style="margin-top: 6%; display: block !important; width: 100%;">
+      <div class="row">
+        <div class="col-12">
+          <h3 style="text-align: justify; color: rgb(73, 69, 69);"><a href="https://discord.gg/CBteqBHz3b">Our official Discord server.</a></h3>
+        </div>
+        
+      </div>
+    </div>
 
-   
+      
     <!-- Footer -->
-    <footer>
+    <footer style="min-width: 100% !important; position: relative; left: 0 !important; bottom: 0 !important; right: 0 !important;">
       <div class="container">
         <div class="row">
           <div class="col-md-4 footer-left">
@@ -221,8 +223,9 @@
             </p>        
           </div>
           <div class="col-md-3 offset-md-1 footer-right">
-            <a href="https://github.com/Swatilekha-Roy/Zen-Bubble"><i class="fab fa-github"></i></a>
+            <a href="https://github.com/Swatilekha-Roy/Fem-STEM"><i class="fab fa-github"></i></a>
 						<a href="mailto:swatilekha.roy4@gmail.com"><i class="fa fa-envelope"></i></a>
+            <a href="https://discord.gg/CBteqBHz3b"><i class="fab fa-discord"></i></a>
           </div>
         </div>
       </div>

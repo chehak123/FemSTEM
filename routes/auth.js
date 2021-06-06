@@ -1,8 +1,8 @@
 var express = require("express");
 var router = express.Router();
 var passport = require("passport");
-var User = require("../models/user");
-//var middleware = require("../middleware"); //no need of writing index .js as directory always calls index.js by default
+var User = require("../db/models/users");
+var middleware = require("../middleware"); //no need of writing index .js as directory always calls index.js by default
 
 //AUTH ROUTES
 //show register form
@@ -12,7 +12,7 @@ router.get("/register", (req, res) => {
 //handle sign up logic
 router.post("/register", function (req, res) {
   User.register(
-    new User({ username: req.body.username, name: req.body.name ,is_mentor:req.body.mentor}),
+    new User({ username: req.body.username, name: req.body.name ,is_mentor:req.body.mentor,skills:req.body.skills,discord_id:req.body.disid}),
     req.body.password,
     function (err, user) {
       if (err) {

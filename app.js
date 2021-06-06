@@ -1,152 +1,260 @@
-require('dotenv').config();
+// Imports
+require("dotenv").config({ path: ".env" });
+const webPush = require("web-push");
+var _ = require("lodash");
+var lowerCase = require('lodash.lowercase');
 const express = require("express");
-const bodyParser = require("body-parser");
+const path = require("path");
+const mongoose = require("mongoose");
+var bodyParser = require("body-parser");
+const bcrypt = require("bcryptjs");
 const ejs = require("ejs");
 
-let port = process.env.PORT || 3000
+const { resolveSoa } = require("dns");
+
+// Intialize the app
 const app = express();
-const mongoose = require("mongoose");
-const passport = require("passport");
-const LocalStrategy = require("passport-local");
-const passportLocalMongoose = require("passport-local-mongoose");
-const  User = require("./models/user");
-const request = require('request');
 
-//Connecting database
-mongoose.connect(
-  //"mongodb+srv://dbUser:dbUser@cluster0.uijgw.mongodb.net/test?retryWrites=true&w=majority",
- "mongodb+srv://chehak:123@cluster0.ca1bc.mongodb.net/UserDB",
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true,
-  }
-);
-
+//passport authentication
+var User = require("./db/models/users");
+var Match = require("./db/models/match");
+var Post = require("./db/models/post");
+var MatchUser = require("./db/models/match");
+var Group = require("./db/models/group");
+var Comment=require("./db/models/comment");
+var passport = require("passport");
+var localStrategy = require("passport-local"),
+  methodOverride = require("method-override");
 app.use(
   require("express-session")({
-    secret: "!@#$%^&*()", 
+    secret: "This is the decryption key",
     resave: false,
     saveUninitialized: false,
   })
 );
 
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser()); 
-passport.use(new LocalStrategy(User.authenticate()));
+// Database connect
+mongoose.connect("mongodb+srv://chehak:123@cluster0.ca1bc.mongodb.net/UserDB", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
-app.use(express.static("public"));
-app.set('view engine', 'ejs');
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
-app.use(passport.initialize());
+app.use(methodOverride("_method"));
+app.use(passport.initialize()); //use to use passport in our code
 app.use(passport.session());
 
-app.get("/", function(req, res){
+passport.use(new localStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
-  res.render("index", {currentUser: req.user});
+// Create application/x-www-form-urlencoded parser
+var urlencodedParser = bodyParser.urlencoded({ extended: false });
+app.use(urlencodedParser);
+
+// Template engine
+app.set("view engine", "ejs");
+
+// For parsing application/json
+app.use(bodyParser.json());
+
+// Loading static files
+app.use(express.static("public"));
+app.use(express.static("views"));
+app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "views")));
+app.use(function (req, res, next) {
+  res.locals.currentUser = req.user;
+  //res.locals.error=req.flash("error");
+  //res.locals.success=req.flash("success");
+  next();
 });
+
 var authRoutes = require("./routes/auth.js");
+var counter = 0;
 app.use("/", authRoutes);
 
-app.get("/logout", (req, res) => {
-  req.logout();
-  res.redirect("/");
+// Homepage rendering
+app.get("/", function (req, res) {
+  res.render("index", { currentUser: req.user });
 });
 
-function isLoggedIn(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  res.redirect("/" + "#login");
-}
-
-app.get("/mentor", (req, res) => {
-  res.render("mentor",{currentUser: req.user});
+// Opportunities page rendering
+app.get("/opportunities", function (req, res) {
+  Post.find({}, function(err, post){
+    res.render("opportunities", {
+      currentUser: req.user,
+      post: post
+      });
+  });
 });
 
-app.get("/faq", (req, res) => {
-  res.render("faq",{currentUser: req.user});
+app.post("/opportunities",function(req,res){
+  const post = new Post ({
+    title: req.body.Title,
+    description: req.body.Description,
+    eligibility: req.body.Eligibility,
+    deadline: req.body.Deadline,
+    link: req.body.Link
+  });
+
+  post.save();
 });
 
-
-
-app.get("/blog_gallery", (req, res) => {
-  res.render("blog_gallery",{currentUser: req.user});
+// Mentoring(help) page rendering
+app.get("/help", function (req, res) {
+Group.find({}, function(err, group){
+    res.render("help", {
+      currentUser: req.user,
+      groups: group
+      });
+  });
 });
 
-app.get("/blog", (req, res) => {
-  res.render("blog",{currentUser: req.user});
+app.post("/help",function(req,res){
+  var newArray = [];
+newArray.push.apply(newArray, req.user.skills);
+  const group = new Group ({
+    title: req.body.Title,
+    description: req.body.Description,
+    link: req.body.Link,
+    skills:newArray,
+    created_by: req.user.name
+  });
+ Group.create(group,function(err,newlyCreated){
+		if(err)
+		{console.log(err); res.redirect("/help");}
+		else
+		{res.redirect("/help");}
+	});	
 });
 
-// app.get("/opportunities", (req, res) => {
-//   res.render("opportunities",{currentUser: req.user});
-// });
+app.get("/help/:id", function (req, res) {
+  // const requestedname = req.params.groupname;
 
-app.get("/scholarships", (req, res) => {
-  res.render("scholarships",{currentUser: req.user});
-});
+  Group.findById(req.params.id).populate("comments").exec(function(err,found){ 
+		if(err)
+		{ console.log(err);}
+			else
+      res.render("grouppage",{
+        currentUser: req.user,
+        //mentorstat: req.user.is_mentor,
+        /*title: group.title,
+        description: group.description,
+        link: group.link,*/
+        group: found
+       });
+	});
+  /*const requestedtitle=_.lowerCase(req.params.groupname);
 
-app.get("/hackcon", (req, res) => {
-  res.render("hackcon",{currentUser: req.user});
-});
+  Group.find({}, function(err, groups){
+  groups.forEach(function(group){
+    const storedtitle=_.lowerCase(group.title);
 
-app.get("/divhireother", (req, res) => {
-  res.render("divhireother",{currentUser: req.user});
-});
-
-app.get("/success", (req, res) => {
-  res.render("success",{currentUser: req.user});
-});
-
-app.get("/failure", (req, res) => {
-  res.render("failure",{currentUser: req.user});
-});
-
-app.post("/newsletter", (req,res)=> {
-  var Name = req.body.name;
-  var Email = req.body.email;
-
-  var data = {
-    members: [
-      {
-        email_address: Email,
-        status: "subscribed",
-        merge_fields:{
-          FNAME: Name
-        }
-      }
-    ]
-  };
-
-  var jsonData = JSON.stringify(data);
-
-  var options = {
-    url : "https://us7.api.mailchimp.com/3.0/lists/836f8723ea",
-    method: "POST",
-    headers: {
-      "Authorization":"Personal 9a289c1e24545e876ec5bc9c62a09ae2-us7"
-    },
-    body:jsonData
-  };
-
-  request(options,(error,response,body)=>{
-    if(error){
-      res.redirect('/failure')
-    } else {
-      if(response.statusCode === 200){
-        res.redirect('/success');
-      } else {
-        res.redirect('/failure');
-      }      
+    //  console.log(storedtitle);
+    //  console.log(requestedtitle);
+    if(storedtitle===requestedtitle){
+       res.render("grouppage",{
+        currentUser: req.user,
+        //mentorstat: req.user.is_mentor,
+        title: group.title,
+        description: group.description,
+        link: group.link,
+       });
     }
-  })
+  });
+});*/
 });
 
-app.listen(port, function() {
-  console.log("Server started on port 3000.");
+app.post("/help/:id",function(req,res){ 
+	Group.findById(req.params.id,function(err,found){
+		if(err){
+		    console.log(err); 
+	}
+		else
+			//create new comments
+		{Comment.create(req.body.comment, function(err, newComment)
+						  {
+				if (err) {console.log(err); res.redirect("back");}
+				else
+				{ newComment.author.id=req.user._id;
+				 newComment.author.username=req.user.name;
+         newComment.is_answered=0; //if its answered, then 1, else 0
+         newComment.text=req.body.text;
+				 newComment.save();
+					//add comment to campground
+					found.comments.push(newComment);
+				 //save comment
+				found.save();
+					//redirect to campground show page
+				
+				 res.redirect("/help/"+req.params.id);
+				}
+			})}
+	})
+})
+
+// Groups page rendering
+app.get("/grouppage", function(req, res) {
+  res.render("grouppage", { currentUser: req.user });
+});
+app.post("/grouppage", function(req, res) {
+  commentdbt = req.body.Commentans;
 });
 
-//9a289c1e24545e876ec5bc9c62a09ae2-us7 api key
-//836f8723ea list
+// Tutorials page rendering
+app.get("/tutorials", function (req, res) {
+  res.render("tutorials", { currentUser: req.user });
+});
+
+// Teammates page rendering
+app.get("/teammates", function (req, res) {
+  res.render("teammates", { currentUser: req.user });
+});
+app.post("/teammates", function (req, res) {
+  console.log(req.body.checked);
+});
+
+
+// Profile page rendering
+app.get("/profile", function (req, res) {
+  res.render("profile", { currentUser: req.user});
+});
+
+// pride page rendering
+app.get("/pride", function (req, res) {
+  res.render("pride", { currentUser: req.user });
+});
+//adding comments
+app.post("/comment",function(req,res){
+	//lookup group using id
+	Group.findById(req.params.id,function(err,found){
+		if(err){
+			req.flash("error","Sorry Campground not found");
+		    console.log(err); 
+			res.redirect("/campgrounds");}
+		else
+			//create new comments
+		{Comment.create(req.body.comment, function(err, newComment)
+						  {
+				if (err) {req.flash("error","Unable to create new comment");console.log(err); res.redirect("back");}
+				else
+				{ newComment.author.id=req.user._id;
+				 newComment.author.username=req.user.username;
+				 newComment.save();
+					//add comment to campground
+					found.comments.push(newComment);
+				 //save comment
+				found.save();
+					//redirect to campground show page
+				 req.flash("success","Comment successfully created!");
+				 res.redirect("/campgrounds/"+req.params.id);
+				}
+			})}
+	})
+})
+// Ports
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`Lazy bum on Port ${PORT}`);
+});

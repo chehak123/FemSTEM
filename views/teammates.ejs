@@ -10,6 +10,7 @@
 
     <!-- FA CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.css" rel="stylesheet">
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="img/favicon.png" type="image/png">
@@ -22,6 +23,97 @@
         
     <!-- Title of Page -->
     <title>FemSTEM</title>
+
+    <!-- Teammates Custom CSS -->
+    <style>
+      *:hover{
+    -webkit-transition: all 1s ease;
+    transition: all 1s ease;
+    }
+    section{
+        float:left;
+        width:100%;
+        background: rgb(250, 224, 186);  /* fallback for old browsers */
+        border-radius: 20px;
+        margin-bottom: 6%;
+        margin-top: 6%;
+        padding-top: 5%;
+        padding-bottom: 5%;
+    }
+    h1{float:left; width:100%; color:#232323; margin-bottom:30px; font-size: 14px;}
+    h1 span{font-family: 'Libre Baskerville', serif; display:block; font-size:45px; text-transform:none; margin-bottom:20px; margin-top:30px; font-weight:700}
+    h1 a{color:#131313; font-weight:bold;}
+
+    /*Profile card 2*/
+    .profile-card-2 .card-img-block{
+        float:left;
+        width:100%;
+        height:150px;
+        overflow:hidden;
+    }
+    .profile-card-2 .card-body{
+        position:relative;
+    }
+    .profile-card-2 .profile {
+      border-radius: 50%;
+      position: absolute;
+      top: -42px;
+      left: 15%;
+      max-width: 75px;
+      border: 3px solid rgba(255, 255, 255, 1);
+      -webkit-transform: translate(-50%, 0%);
+      transform: translate(-50%, 0%);
+    }
+    .profile-card-2 h5{
+        font-weight:600;
+        color:#6ab04c;
+    }
+    .profile-card-2 .card-text{
+        font-weight:300;
+        font-size:15px;
+    }
+    .profile-card-2 .icon-block{
+        float: right;
+    }
+    .profile-card-2 .icon-block a{
+        text-decoration:none;
+    }
+    .profile-card-2 i {
+      display: inline-block;
+        font-size: 16px;
+        color: #6ab04c;
+        text-align: center;
+        border: 1px solid #6ab04c;
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        border-radius: 50%;
+        margin:0 5px;
+    }
+    .profile-card-2 i:hover {
+      background-color:#6ab04c;
+      color:#fff;
+    }
+
+    /* Team card hashtags */
+    .card-skilltag {
+      width: 20px; 
+      margin: 4% 1%; 
+      padding: 7px 12px; 
+      color: #fff; 
+      border-radius: 18px; 
+      background-color: rgb(11, 163, 201); 
+      white-space:nowrap;
+    }
+    </style>
+
+    <!-- Teammates Custom Script -->
+    <script type="text/javascript">
+      function hidedumimg()
+      {
+        document.querySelector(".team-dum-img").style.display = "none";
+      }
+    </script>
   </head>
 
   
@@ -119,13 +211,85 @@
 
             <div class="row">
               <div class="col-7 col-md-4">
-                <button type="submit" class="submit-btn" style="margin-top: 4%; margin-bottom: 2%; width: 20%; border-radius: 8px; color: #fff;">Find Teammates</button>
+                <button type="submit" onclick="hidedumimg()" class="submit-btn" style="margin-top: 4%; margin-bottom: 2%; width: 20%; border-radius: 8px; color: #fff;">Find Teammates</button>
               </div>
             </div>            
           </form>      
         </div>    
     </div>
     <hr>
+
+    <!-- Dummy image -->
+    <div class="container team-dum-img">
+      <div class="row">
+        <div class="col-md-12">
+          <img src="img/team.png" width="80%" alt="team image" />
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- Teammate cards -->
+    <section>
+      <div class="container">
+        <div class="row">
+              
+
+          <div class="col-md-4">
+            <div class="card profile-card-2">
+              <div class="card-img-block">
+                <img class="img-fluid" src="https://images.pexels.com/photos/965345/pexels-photo-965345.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Card image cap">
+              </div>
+              <div class="card-body pt-5">
+                <!-- add mentor mentee condition here -->
+                <img src="img/mentor.jpg" alt="profile-image" class="profile"/>
+
+                <!-- Member name with mentor status-->
+                <h5 class="card-title">Name (Mentor/ Mentee)</h5>
+
+                <!-- Discord id -->
+                <p><i class="fab fa-discord"></i> id: @oh_laugh_hugs</p>
+
+                <!-- Skill tags -->
+                  <span class="card-skilltag">Ui ux</span>
+                  <!-- <span class="card-skilltag">Ui us</span>
+                  <span class="card-skilltag">Ui us</span>
+                  <span class="card-skilltag">Ui us</span>
+                  <span class="card-skilltag">Ui us</span>
+                  <span class="card-skilltag">Ui us</span>
+                  <span class="card-skilltag">Ui us</span>
+                  <span class="card-skilltag">Ui us</span>
+                  <span class="card-skilltag">Ui us</span>
+
+                  <span class="card-skilltag">Ui us</span> -->
+
+    
+                
+                <div class="icon-block" style="margin-top: 5%;">
+                  <!-- Mail address -->
+                  <a href="mailto:"> <i class="fas fa-envelope-open"></i></a>
+                </div>
+              </div>
+            </div>                  
+          </div>
+          
+          
+        </div>
+      </div>
+  </section>
+
+
+
+    <!-- Discord link -->
+    <div class="container" style="margin-top: 6%;">
+      <div class="row">
+        <div class="col-12">
+          <h3 style="text-align: justify; color: rgb(73, 69, 69);">For more interactions and mentor help, you can also head over to <a href="https://discord.gg/CBteqBHz3b">our official Discord server.</a></h3>
+        </div>
+        
+      </div>
+    </div>
     
     <!-- Footer -->
     <footer>
@@ -137,8 +301,9 @@
             </p>        
           </div>
           <div class="col-md-3 offset-md-1 footer-right">
-            <a href="https://github.com/Swatilekha-Roy/Zen-Bubble"><i class="fab fa-github"></i></a>
+            <a href="https://github.com/Swatilekha-Roy/Fem-STEM"><i class="fab fa-github"></i></a>
 						<a href="mailto:swatilekha.roy4@gmail.com"><i class="fa fa-envelope"></i></a>
+            <a href="https://discord.gg/CBteqBHz3b"><i class="fab fa-discord"></i></a>
           </div>
         </div>
       </div>

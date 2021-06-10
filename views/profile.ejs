@@ -19,7 +19,70 @@
     <link rel="stylesheet" href="css/styles.css">
 
     <!-- Title of Page -->
-    <title>Zen Bubble</title>
+    <title>Fem STEM</title>
+
+    <!-- Custom Profile page CSS -->
+    <style>
+      /* Tag skills */
+      body {
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+
+      .tags {
+          max-width: 90%;
+          width: 100%;
+          padding: 30px 40px;
+          display: -webkit-box;
+          display: -ms-flexbox;
+          float: right;
+          display: flex;
+          -webkit-box-orient: vertical;
+          -webkit-box-direction: normal;
+          -ms-flex-direction: column;
+          flex-direction: column;
+        }
+        
+        .tags ul {
+          list-style: none;
+          display: -webkit-box;
+          display: -ms-flexbox;
+          display: flex;
+          -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+        }
+        
+        .tags ul li {
+          border-radius: 22px;
+          border: 1px solid #1a1b38;
+          box-shadow: -1px 1px 5px 0px rgba(255,255,255,0.75);
+          -webkit-box-shadow: -1px 1px 5px 0px rgba(255,255,255,0.75);
+          -moz-box-shadow: -1px 1px 5px 0px rgba(255,255,255,0.75);
+        }
+
+        .tags ul li a {
+            background-color: rgb(168, 247, 104);
+            border-radius: 20px;
+        }
+        
+        .tags ul li:first-child {
+          margin-right: 10px;
+          margin-top: 10px;
+        }
+        
+        .tags ul li + li {
+          margin-right: 10px;
+          margin-top: 10px;
+        }
+        
+        .tags ul li a {
+          display: block;
+          text-decoration: none;
+          padding: 10px 15px;
+          font-weight: bold;
+          color: black;
+        }
+    </style>
   </head>
 
   
@@ -80,23 +143,55 @@
     </nav>
 
     <!-- Dashboard -->
-    <div class="container top-con">
+    <div class="container top-con" style="margin-bottom: 8%;">
       <h2>Your Profile</h2>
       <div class="row" style="margin-top: 3%;">
         <div class="col-xs-12 col-md-6">
           <span style="font-weight: 600; font-size: 1.2rem;">Name:</span> 
           <span style="margin-left: 40px;"><%=currentUser.name%></span>
         </div>
+
         <div class="col-xs-12 col-md-6">
           <span style="font-weight: 600; font-size: 1.2rem;">Email address:</span> 
           <span style="margin-left: 40px;"><%=currentUser.username%></span>
         </div>
       </div>
+
       <div class="row" style="margin-top: 2%;">
           <div class="col-xs-12">
             <span style="font-weight: 700; font-size: 1.3rem;">Discord id:</span> 
-            <span style="margin-left: 40px;"></span>
+            <span style="margin-left: 40px;"> <%=currentUser.discord_id%></span>
           </div>
+      </div>
+
+      <div class="row" style="margin-top: 2%;">
+        <div class="col-xs-12">
+          <% if(currentUser.is_mentor == 1){ %>
+            <span style="font-weight: 700; font-size: 1.3rem;">Current Status:</span>
+            <span style="margin-left: 40px;"> Mentor</span>
+          <% } else { %>
+            <span style="font-weight: 700; font-size: 1.3rem;">Current Status:</span>
+            <span style="margin-left: 40px;"> Mentee</span>
+          <% } %> 
+        </div>
+      </div>
+
+      <div class="row" style="margin-top: 2%;">
+        <div class="col-xs-12 tags" style="padding-left: 9px;">
+          <span style="font-weight: 700; font-size: 1.3rem;">Skills:</span>
+          <!-- Skills tags -->
+       
+            <ul style="padding-left: 0;"> 
+              <% currentUser.skills.forEach(function(skill){%>
+                <li>
+                    <a>
+                      <%= skill %>     
+                    </a>
+                </li>    
+                <%}) %>     
+            </ul>
+  
+        </div>
       </div>
     </div>
 
@@ -104,21 +199,21 @@
 
     <!-- Footer -->
     <footer>
-        <div class="container">
-          <div class="row">
-            <div class="col-md-3 footer-left">
-              <p>
-                <img src="img/favicon.png" style="width: 55px;">  <span style="color: #1e7c37;">Made with <i class="fas fa-heart"></i> by Zen Bubble</span>
-              </p>        
-            </div>
-            <div class="col-md-3 offset-md-1 footer-right">
-              <a href="https://github.com/Swatilekha-Roy/Fem-STEM"><i class="fab fa-github"></i></a>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 footer-left">
+            <p>
+              <img src="img/favicon.png" style="width: 65px;">  <span style="color: #573f70; font-weight: 600;">Made with <i class="fas fa-heart"></i> by FemSTEM</span>
+            </p>        
+          </div>
+          <div class="col-md-3 offset-md-1 footer-right">
+            <a href="https://github.com/Swatilekha-Roy/Fem-STEM"><i class="fab fa-github"></i></a>
 						<a href="mailto:swatilekha.roy4@gmail.com"><i class="fa fa-envelope"></i></a>
             <a href="https://discord.gg/CBteqBHz3b"><i class="fab fa-discord"></i></a>
-            </div>
           </div>
         </div>
-      </footer>
+      </div>
+    </footer>
       
       <!-- Scroll to top arrow -->
       <a href="javascript:" id="return-to-top"><i class="fa fa-angle-up" aria-hidden="true" style="font-size: 30px;"></i></a>

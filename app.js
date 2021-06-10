@@ -207,12 +207,84 @@ app.get("/tutorials", function (req, res) {
 });
 
 // Teammates page rendering
+var skillarr = new Array();
+var requser = new Array();
 app.get("/teammates", function (req, res) {
-  res.render("teammates", { currentUser: req.user });
+
+  // requser.sort(function(a, b){
+  //   var x = a._id;
+  //   var y = b._id;
+  //   if (x < y) {return -1;}
+  //   if (x > y) {return 1;}
+  //   return 0;
+  // });
+
+  // for(var i=0;i<requser.length;i++){
+  //   console.log(requser[i].name);
+  // }
+
+  // console.log("i");
+
+  // for(var i=1;i<requser.length;i++){
+  //   console.log(requser[i-1].name);
+  //   console.log(requser[i].name);
+    
+  //   if(requser[i]._id===requser[i-1]._id){
+  //     cout<<"i";
+  //     requser.splice(i+1,1);
+  //     i--;
+  //   }
+  // }
+
+//   requser.splice(3,1);
+
+// console.log("i");
+
+//   for(var i=1;i<requser.length;i++){
+//     console.log(requser[i]._id);
+//     // if(requser[i]===requser[i-1]){
+//       // requser.splice(,1);
+//       // i--;
+//     // }
+//   }
+
+  // for(var i=0;i<requser.length;i++){
+  //   console.log(requser[i]);
+  // }
+
+  // requser.sort();
+
+  res.render("teammates", { 
+    currentUser: req.user,
+    requser: requser
+  });
+
 });
+
+
 app.post("/teammates", function (req, res) {
-  console.log(req.body.checked);
+  
+    for(var i=0; i<req.body.checked.length; i++)
+    {
+      skillarr[i] = req.body.checked[i];
+      // console.log(skillarr[i]);
+    }
+
+    var j=0;
+    for(var i=0;i<skillarr.length;i++){
+      User.find({skills: { "$in" : [skillarr[i]]} }, function(err,requserdb){
+        requserdb.forEach(function(user){
+          requser[j]=user;
+          j++;
+        });
+       
+      });
+    }
+
 });
+
+requser=[];
+skillarr = [];
 
 
 // Profile page rendering

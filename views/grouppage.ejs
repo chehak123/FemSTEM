@@ -130,7 +130,7 @@
    <!-- Comment section -->
     <div class="comment-container container theme--light">
       <div class="row">
-        <h2 style="margin-top: 6%; color:#619196; font-size: 43px; "><%= group.title %></h2>
+        <h2 style="margin-top: 6%; color:#619196; font-size: 43px; "><%= group.title %>, created by <%= group.created_by %></h2>
         <p style="color:#8484c8; font-size: 18px; "><%= group.description %> Clear all your doubts by posting your topic relevant questions in this group and wait for the mentor or others on the thread to help you.</p>
       </div>
        
@@ -150,7 +150,17 @@
    
           <!-- All comments shown -->
         <div class="comments" >
+          <div  class="card v-card v-sheet theme--light elevation-2">             
+            <div  class="header">
+              <div  class="v-avatar avatar" style="height: 50px; width: 50px;">
+                  <img  src="../img/mentor.jpg">
+              </div> 
+              <span  class="displayName caption">Feel free to ask me any and all your doubts. Also, I am open to a one on one Discord voice call too, on the Fem STEM server!</span>
+            </div>
+          </div>
           
+          <p><%= currentUser.is_mentor %></p>
+
           <% group.comments.forEach(function(comment){%>
             <div  class="card v-card v-sheet theme--light elevation-2">
               
@@ -163,7 +173,12 @@
                   <% } %> 
                 </div>
                 <span  class="displayName title"> <%=comment.author.username%> </span> 
-                <span  class="displayName caption">2 days ago</span>
+                <% if(currentUser.is_mentor == 1){ %>
+                  <span  class="displayName caption">Mentor</span>
+                <% } else { %>
+                  <span  class="displayName caption">Mentee</span>
+                <% } %> 
+                
               </div>
  
               <div  class="wrapper comment">
